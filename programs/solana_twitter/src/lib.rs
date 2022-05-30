@@ -11,11 +11,11 @@ pub mod solana_twitter {
         let author: &Signer = &ctx.accounts.author;
         let clock: Clock = Clock::get()?;
 
-        if topic.chars().count() > MAX_TOPIC_LENGTH {
+        if topic.chars().count() > 50 {
             return Err(error!(ErrorCode::TopicTooLong));
         }
 
-        if content.chars().count() > MAX_CONTENT_LENGTH {
+        if content.chars().count() > 280 {
             return Err(error!(ErrorCode::ContentTooLong));
         }
 
