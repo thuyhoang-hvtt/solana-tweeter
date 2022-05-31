@@ -1,21 +1,22 @@
 <script setup lang="ts">
-  // This starter template is using Vue 3 <script setup> SFCs
-  // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-  import HelloWorld from './components/HelloWorld.vue';
+  import { useRoute } from 'vue-router';
+  import TheSidebar from './components/TheSidebar.vue';
+  const route = useRoute();
 </script>
 
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
-</template>
+  <div class="w-full max-w-3xl lg:max-w-4xl mx-auto">
+    <!-- Sidebar. -->
+    <the-sidebar class="py-4 md:py-8 md:pl-4 md:pr-8 fixed w-20 md:w-64" />
 
-<style>
-  #app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
-  }
-</style>
+    <!-- Main -->
+    <main class="flex-1 border-r border-l ml-20 md:ml-64 min-h-screen">
+      <header
+        class="flex space-x-6 items-center justify-between px-8 py-4 border-b"
+      >
+        <div class="text-xl font-bold" v-text="route.name"></div>
+      </header>
+      <router-view></router-view>
+    </main>
+  </div>
+</template>
