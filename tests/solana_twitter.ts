@@ -152,4 +152,49 @@ describe("solana_twitter", () => {
       "The instruction should  have failed with a 281-character content."
     );
   });
+
+  it("can fetch all tweets", async () => {
+    const createdTweets = await program.account.tweet.all();
+    assert.equal(createdTweets.length, 3);
+  });
+
+  it("can filter tweets by author", async () => {
+    const owner = provider.wallet.publicKey;
+    const tweetsByOwner = await program.account.tweet.all([
+      {
+        memcmp: {
+          offset: 8, // Discriminator
+          bytes: owner.toBase58(),
+        },
+      },
+    ]);
+
+    assert.equal(tweetsByOwner.length, 2);
+    assert.ok(
+      tweetsByOwner.every(
+        (tweet) => tweet.account.author.toBase58() === owner.toBase58()
+      )
+    );
+  });
+
+  it("can filter tweets by topic", async () => {
+    const topicCriterion = "newworld";
+    const tweetsByTopic = await program.account.tweet.all([
+      {
+        memcmp: {
+          offset:
+            8 + // Discriminator
+            32 + // Author public key
+            8 + // Timestamp
+            4, // Topic string prefix
+          bytes: anchor.utils.bytes.bs58.encode(Buffer.from(topicCriterion)),
+        },
+      },
+    ]);
+
+    assert.equal(tweetsByTopic.length, 1);
+    assert.ok(
+      tweetsByTopic.every((tweet) => tweet.account.topic === topicCriterion)
+    );
+  });
 });
