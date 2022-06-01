@@ -1,5 +1,6 @@
 <script setup lang="ts">
-  import { WalletMultiButton } from 'solana-wallets-vue';
+  import { useWallet, WalletMultiButton } from 'solana-wallets-vue';
+  const { connected } = useWallet();
 </script>
 
 <template>
@@ -132,7 +133,7 @@
       </router-link>
       <!-- TODO: Check connected wallet. -->
       <router-link
-        v-if="true"
+        v-if="connected"
         v-slot="{ isActive }"
         :to="{ name: 'Profile' }"
         class="rounded-full hover:bg-gray-100 p-3 md:w-full inline-flex items-center space-x-4"

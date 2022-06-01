@@ -7,7 +7,7 @@ import { IWorkspace } from '@src/interface';
 import idl from '@src/idl/solana_twitter.json';
 
 const programId = new PublicKey((idl as Idl).metadata.address);
-let workspace: IWorkspace | null = null;
+let workspace: IWorkspace;
 
 export const useWorkspace = () => workspace;
 
