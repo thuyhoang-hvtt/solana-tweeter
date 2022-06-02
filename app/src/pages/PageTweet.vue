@@ -3,14 +3,14 @@
   import { PublicKey } from '@solana/web3.js';
   import { getTweet } from '@src/api';
   import { useFromRoute } from '@src/hooks';
-  import { ITweet } from '@src/interface';
+  import { TweetModel } from '@src/models/tweet.model';
   import TweetCard from '@src/components/TweetCard.vue';
 
   const tweetAddress = ref('');
   useFromRoute((route) => (tweetAddress.value = route.params.tweet as string));
 
   const loading = ref(false);
-  const tweet = ref<ITweet | null>(null);
+  const tweet = ref<TweetModel | null>(null);
   watchEffect(async () => {
     try {
       loading.value = true;
