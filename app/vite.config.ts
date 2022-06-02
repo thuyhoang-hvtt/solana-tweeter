@@ -6,6 +6,10 @@ import { resolve } from 'path';
 export default defineConfig({
   resolve: {
     alias: {
+      process: 'process/browser',
+      stream: 'stream-browserify',
+      zlib: 'browserify-zlib',
+      util: 'util',
       '@src': resolve(__dirname, 'src'),
     },
   },

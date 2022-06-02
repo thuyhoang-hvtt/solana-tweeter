@@ -11,10 +11,37 @@
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ec4899" />
     <meta name="msapplication-TileColor" content="#ec4899" />
     <meta name="theme-color" content="#ffffff" />
+
+    <!-- Meta Facebook -->
+    <meta property="og:url" content="https://solana-tweeter.vercel.app/" />
+    <meta property="og:type" content="dapp" />
+    <meta property="og:title" content="Solana Tweeter" />
+    <meta
+      property="og:description"
+      content="Decentralize application Tweeter-cloned on Solana ecosystem"
+    />
+    <meta property="og:image" content="/media.png" />
+
+    <!-- Meta Tweeter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@thuyhoang_hvtt" />
+    <meta name="twitter:creator" content="@thuyhoang_hvtt" />
     <title>Solana Twitter</title>
   </head>
   <body>
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
   </body>
+  <script>
+    window.global = window;
+  </script>
+  <script type="module">
+    import process from 'process';
+    import { Buffer } from 'buffer';
+    import EventEmitter from 'events';
+
+    window.Buffer = Buffer;
+    window.process = process;
+    window.EventEmitter = EventEmitter;
+  </script>
 </html>
