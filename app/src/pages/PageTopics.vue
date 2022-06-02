@@ -1,8 +1,8 @@
 <script setup lang="ts">
   import { ref } from 'vue';
   import { useRouter } from 'vue-router';
-  import { fetchTweets } from '@src/api';
-  import { ITweet } from '@src/interface';
+  import { fetchTweets, topicFilter } from '@src/api';
+  import { TweetModel } from '@src/models/tweet.model';
   import { useSlug, useFromRoute } from '@src/hooks';
   import TweetForm from '@src/components/TweetForm.vue';
   import TweetList from '@src/components/TweetList.vue';
@@ -10,7 +10,7 @@
 
   // Data
   const router = useRouter();
-  const tweets = ref<ITweet[]>([]);
+  const tweets = ref<TweetModel[]>([]);
   const loading = ref(true);
   const topic = ref('');
   const slugTopic = useSlug(topic);
@@ -26,14 +26,14 @@
 
     try {
       loading.value = true;
-      tweets.value = await fetchTweets();
+      tweets.value = await fetchTweets([topicFilter(slugTopic.value)]);
       viewedTopic.value = slugTopic.value;
     } finally {
       loading.value = false;
     }
   };
 
-  const addTweet = (tweet: ITweet) => tweets.value.push(tweet);
+  const addTweet = (tweet: TweetModel) => tweets.value.push(tweet);
 
   // Router hooks
   useFromRoute((route) => {

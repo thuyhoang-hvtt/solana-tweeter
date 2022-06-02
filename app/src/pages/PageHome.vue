@@ -3,9 +3,9 @@
   import TweetForm from '@src/components/TweetForm.vue';
   import TweetList from '@src/components/TweetList.vue';
   import { fetchTweets } from '@src/api';
-  import { ITweet } from '@src/interface';
+  import { TweetModel } from '@src/models/tweet.model';
 
-  const tweets = ref<ITweet[]>([]);
+  const tweets = ref<TweetModel[]>([]);
   const loading = ref(true);
 
   onBeforeMount(() => {
@@ -14,7 +14,7 @@
       .finally(() => (loading.value = false));
   });
 
-  const addTweet = (tweet: ITweet) => tweets.value.push(tweet);
+  const addTweet = (tweet: TweetModel) => tweets.value.push(tweet);
 </script>
 
 <template>

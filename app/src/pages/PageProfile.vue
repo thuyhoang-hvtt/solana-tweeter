@@ -1,23 +1,24 @@
 <script setup lang="ts">
   import { ref, watchEffect } from 'vue';
-  import { fetchTweets } from '@src/api';
+  import { fetchTweets, authorFilter } from '@src/api';
   import TweetForm from '@src/components/TweetForm.vue';
   import TweetList from '@src/components/TweetList.vue';
-  import { ITweet } from '@src/interface';
+  import { TweetModel } from '@src/models/tweet.model';
   import { useWorkspace } from '@src/hooks';
 
-  const tweets = ref<ITweet[]>([]);
+  const { wallet } = useWorkspace();
+
+  const tweets = ref<TweetModel[]>([]);
   const loading = ref(true);
 
   watchEffect(() => {
-    fetchTweets()
+    if (!wallet.value) return;
+    fetchTweets([authorFilter(wallet.value.publicKey.toBase58())])
       .then((fetchedTweets) => (tweets.value = fetchedTweets))
       .finally(() => (loading.value = false));
   });
 
-  const addTweet = (tweet: ITweet) => tweets.value.push(tweet);
-
-  const { wallet } = useWorkspace();
+  const addTweet = (tweet: TweetModel) => tweets.value.push(tweet);
 </script>
 
 <template>

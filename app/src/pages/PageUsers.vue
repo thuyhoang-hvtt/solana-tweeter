@@ -1,15 +1,15 @@
 <script setup lang="ts">
   import { ref } from 'vue';
   import { useRouter } from 'vue-router';
-  import { fetchTweets } from '@src/api';
+  import { fetchTweets, authorFilter } from '@src/api';
   import { useFromRoute } from '@src/hooks';
-  import { ITweet } from '@src/interface';
+  import { TweetModel } from '@src/models/tweet.model';
   import TweetList from '@src/components/TweetList.vue';
   import TweetSearch from '@src/components/TweetSearch.vue';
 
   // Data.
   const router = useRouter();
-  const tweets = ref<ITweet[]>([]);
+  const tweets = ref<TweetModel[]>([]);
   const loading = ref(true);
   const author = ref('');
   const viewedAuthor = ref('');
@@ -23,7 +23,7 @@
     if (author.value === viewedAuthor.value) return;
     try {
       loading.value = true;
-      const fetchedTweets = await fetchTweets();
+      const fetchedTweets = await fetchTweets([authorFilter(author.value)]);
       tweets.value = fetchedTweets;
       viewedAuthor.value = author.value;
     } finally {
