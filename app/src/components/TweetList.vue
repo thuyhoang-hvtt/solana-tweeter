@@ -1,10 +1,10 @@
 <script setup lang="ts">
   import { computed, toRefs } from 'vue';
   import TweetCard from '@src/components/TweetCard.vue';
-  import { ITweet } from '@src/interface';
+  import { TweetModel } from '@src/models/tweet.model';
 
   interface IProps {
-    tweets: Array<ITweet>;
+    tweets: Array<TweetModel>;
     loading: boolean;
   }
 
