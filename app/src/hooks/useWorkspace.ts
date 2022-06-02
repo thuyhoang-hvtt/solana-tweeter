@@ -1,5 +1,5 @@
 import { computed } from 'vue';
-import { useWallet, useAnchorWallet } from 'solana-wallets-vue';
+import { useAnchorWallet } from 'solana-wallets-vue';
 import { Connection, PublicKey } from '@solana/web3.js';
 import { Idl, Program, AnchorProvider, Wallet } from '@project-serum/anchor';
 import { SolanaTwitter } from '@src/idl/solana_twitter';
@@ -16,7 +16,7 @@ export const useWorkspace = () => workspace;
 export const initWorkspace = () => {
   const wallet = useAnchorWallet();
   const connection = new Connection(
-    import.meta.env.RPC_URL ?? 'http://127.0.0.1:8899',
+    import.meta.env.VITE_CLUSTER ?? 'http://127.0.0.1:8899',
     commitment
   );
   const provider = computed(
