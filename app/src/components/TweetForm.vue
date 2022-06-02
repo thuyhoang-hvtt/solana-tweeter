@@ -6,6 +6,7 @@
     useAutoResizeTextarea,
     useCountCharacterLimit,
   } from '@src/hooks';
+  import { useWallet } from 'solana-wallets-vue';
 
   interface IProps {
     forcedTopic?: string;
@@ -34,7 +35,7 @@
   });
 
   // Permissions
-  const connected = ref(true);
+  const { connected } = useWallet();
   const canTweet = computed(() => content.value && characterLimit.value > 0);
 
   // Actions
