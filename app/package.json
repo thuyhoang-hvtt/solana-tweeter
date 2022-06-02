@@ -11,9 +11,10 @@
     "lint:markup": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "@project-serum/anchor": "^0.25.0-beta.1",
+    "@project-serum/anchor": "^0.24.2",
     "@solana/wallet-adapter-wallets": "^0.16.1",
     "@solana/web3.js": "^1.43.4",
+    "date-fns": "^2.28.0",
     "solana-wallets-vue": "^0.3.2",
     "vue": "^3.2.25",
     "vue-router": "4"
